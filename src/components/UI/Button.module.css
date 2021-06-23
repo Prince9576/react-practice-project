@@ -1,0 +1,18 @@
+.button {
+  width: 12rem;
+  padding: 14px;
+  border: 0;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.button-hard {
+  background: dodgerblue;
+  color: white;
+}
+
+.button-soft {
+  background: lightcyan;
+  color: black;
+}

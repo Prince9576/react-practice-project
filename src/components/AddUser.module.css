@@ -1,0 +1,36 @@
+.card-wrapper {
+  height: 20rem;
+  width: 40rem;
+  margin: 5rem auto;
+  padding: 3rem;
+}
+
+.card-wrapper input {
+  display: block;
+  width: 80%;
+  height: 2.5rem;
+  border-radius: 10px;
+  border: 1px solid #1f1f1f;
+  margin-top: 7px;
+}
+
+.card-wrapper label {
+  font-family: -webkit-pictograph;
+  font-size: 1.1rem;
+}
+
+.card-wrapper .form-control {
+  margin-bottom: 1rem;
+}
+
+.margin-xl {
+  margin-bottom: 2rem !important;
+}
+
+.card-wrapper input:focus {
+  outline: none;
+}
+
+.card-wrapper input.invalid {
+  border: 1px solid red;
+}
