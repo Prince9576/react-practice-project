@@ -1,0 +1,23 @@
+.overlay {
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  width: 40rem;
+  padding: 2rem;
+}
+
+.header {
+  font-size: 1.6rem;
+  color: red;
+}
+hr {
+  margin: 1rem 0px;
+}

@@ -7,7 +7,7 @@ const Button = (props) => {
       className={`${styles.button} ${
         props.buttonType === "dark"
           ? styles["button-hard"]
-          : styles["button-light"]
+          : styles["button-danger"]
       }`}
     >
       {props.children}

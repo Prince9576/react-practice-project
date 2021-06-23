@@ -1,15 +1,28 @@
 import { useState } from "react";
 import styles from "./AddUser.module.css";
+import ErrorModal from "./modals/ErrorModal";
 import Button from "./UI/Button";
 import Card from "./UI/Card";
-
 const AddUser = (props) => {
   const [username, setUsername] = useState("");
   const [age, setAge] = useState("");
   const [isValid, setIsValid] = useState(true);
+  const [error, setError] = useState(null);
   const formSubmitHandler = (event) => {
     event.preventDefault();
     if (username.trim().length === 0 || age.trim().length === 0) {
+      setError({
+        title: "Invalid",
+        message: "Please enter the details to proceed",
+      });
+      setIsValid(false);
+      return;
+    }
+    if (+age < 1) {
+      setError({
+        title: "Invalid",
+        message: "Please enter age greater than 1",
+      });
       setIsValid(false);
       return;
     }
@@ -28,34 +41,46 @@ const AddUser = (props) => {
   const ageChangeHandler = (event) => {
     setAge(event.target.value);
   };
+  const errorHandler = () => {
+    setError(null);
+  };
   return (
-    <Card className={styles["card-wrapper"]}>
-      <form onSubmit={formSubmitHandler}>
-        <div className={styles["form-control"]}>
-          <label htmlFor="username">Username</label>
-          <input
-            value={username}
-            type="text"
-            id="username"
-            onChange={usernameChangeHandler}
-            className={!isValid ? styles.invalid : ""}
-          />
-        </div>
-        <div className={`${styles["form-control"]} ${styles["margin-xl"]}`}>
-          <label htmlFor="age">Age</label>
-          <input
-            value={age}
-            type="text"
-            id="age"
-            onChange={ageChangeHandler}
-            className={!isValid ? styles.invalid : ""}
-          />
-        </div>
-        <Button buttonType="dark" type="submit">
-          Add Data
-        </Button>
-      </form>
-    </Card>
+    <div>
+      {error && (
+        <ErrorModal
+          onClose={errorHandler}
+          title={error.title}
+          message={error.message}
+        />
+      )}
+      <Card className={styles["card-wrapper"]}>
+        <form onSubmit={formSubmitHandler}>
+          <div className={styles["form-control"]}>
+            <label htmlFor="username">Username</label>
+            <input
+              value={username}
+              type="text"
+              id="username"
+              onChange={usernameChangeHandler}
+              className={!isValid ? styles.invalid : ""}
+            />
+          </div>
+          <div className={`${styles["form-control"]} ${styles["margin-xl"]}`}>
+            <label htmlFor="age">Age</label>
+            <input
+              value={age}
+              type="text"
+              id="age"
+              onChange={ageChangeHandler}
+              className={!isValid ? styles.invalid : ""}
+            />
+          </div>
+          <Button buttonType="dark" type="submit">
+            Add Data
+          </Button>
+        </form>
+      </Card>
+    </div>
   );
 };
 
