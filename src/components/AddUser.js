@@ -1,16 +1,18 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import styles from "./AddUser.module.css";
 import ErrorModal from "./modals/ErrorModal";
 import Button from "./UI/Button";
 import Card from "./UI/Card";
 const AddUser = (props) => {
-  const [username, setUsername] = useState("");
-  const [age, setAge] = useState("");
+  const userNameRef = useRef();
+  const ageRef = useRef();
   const [isValid, setIsValid] = useState(true);
   const [error, setError] = useState(null);
   const formSubmitHandler = (event) => {
     event.preventDefault();
-    if (username.trim().length === 0 || age.trim().length === 0) {
+    const userNameValue = userNameRef.current.value;
+    const ageValue = ageRef.current.value;
+    if (userNameValue.trim().length === 0 || ageValue.trim().length === 0) {
       setError({
         title: "Invalid",
         message: "Please enter the details to proceed",
@@ -18,7 +20,7 @@ const AddUser = (props) => {
       setIsValid(false);
       return;
     }
-    if (+age < 1) {
+    if (+ageValue < 1) {
       setError({
         title: "Invalid",
         message: "Please enter age greater than 1",
@@ -27,20 +29,15 @@ const AddUser = (props) => {
       return;
     }
     setIsValid(true);
-    setUsername("");
-    setAge("");
-    console.log(username, age);
+    console.log(userNameValue, ageValue);
     props.onAddUser({
-      name: username,
-      age,
+      name: userNameValue,
+      age: ageValue,
     });
+    userNameRef.current.value = "";
+    ageRef.current.value = "";
   };
-  const usernameChangeHandler = (event) => {
-    setUsername(event.target.value);
-  };
-  const ageChangeHandler = (event) => {
-    setAge(event.target.value);
-  };
+
   const errorHandler = () => {
     setError(null);
   };
@@ -58,20 +55,18 @@ const AddUser = (props) => {
           <div className={styles["form-control"]}>
             <label htmlFor="username">Username</label>
             <input
-              value={username}
               type="text"
               id="username"
-              onChange={usernameChangeHandler}
+              ref={userNameRef}
               className={!isValid ? styles.invalid : ""}
             />
           </div>
           <div className={`${styles["form-control"]} ${styles["margin-xl"]}`}>
             <label htmlFor="age">Age</label>
             <input
-              value={age}
               type="text"
               id="age"
-              onChange={ageChangeHandler}
+              ref={ageRef}
               className={!isValid ? styles.invalid : ""}
             />
           </div>
